@@ -1,11 +1,12 @@
-name: Android Builds
+name: Android Build
 
 on: push
 
 jobs:
-  builds:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
       - uses: actions/checkout@v1
 
       - name: Set Up JDK
@@ -13,7 +14,7 @@ jobs:
         with:
           java-version: 1.11
 
-      - name: Builds Project
+      - name: Build Project
         run: ./gradlew assemble
 
       - name: Run Tests

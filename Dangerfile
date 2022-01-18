@@ -15,7 +15,3 @@ end
 if git.deletions > git.insertions
     message  "🎉 Code Cleanup!"
 end
-
-if !git.modified_files.include?("stream-history.md")
-    fail "Please update stream-history.md with relevant information."
-end

@@ -38,7 +38,7 @@
         - Go to Preferences -> search for imports -> Editors -> Code Style -> Kotlin and select use single name import
      - Remove these wildcards from the errors
 7. Go to android_build.yml
-    - Add a Link checks code there.
+    - Add a Lint checks code there.
     - Check this project for example
     
     

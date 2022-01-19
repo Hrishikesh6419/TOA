@@ -1,18 +1,18 @@
 ## Initial Setup - Github Actions and Danger
 
 1. Create .github package in the project root folder.
-   
+
 2. Create another package inside .github and name it 'workflows'
-   
+
 3. Create the below files in it, and copy the contents from the files in this project
     - android_build.yml
     - android_ui_tests.yml
     - danger_checks.yml
-    
+
 4. Create the below files in the project root directory, and copy the contents from the files in this project
     - Gemfile
     - Dangerfile
-    
+
 5. Go to Github -> Settings -> Branches -> Set Branch Protection Rules for the master or develop branch.
     - Select Static checks to pass before merging
     - Give the below static checks as required to pass
@@ -44,7 +44,7 @@
         - To avoid getting this issue do,
             - Go to Preferences -> search for imports -> Editors -> Code Style -> Kotlin and select use single name import
         - Remove these wildcards from the errors
-    
+
 7. Go to android_build.yml
     - Add a Lint checks code there.
     - Check this project for example
@@ -57,20 +57,20 @@ This runs other static analysis for us, like
 - Am I referencing a magic number?
 
 8. Do the following
-   - Add the following in build.gradle app level, in ext under buildscripts
-      - // https://github.com/detekt/detekt/releases
-        detekVersion = "1.17.0"
-   - Add the following in build.gradle app level, under repositories
-      - classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
-   - In the Project root level
-      - Create a directory named 'buildscripts'(If it not already exists)
-      - Create a file called 'detekt.gradle'
-      - Copy the file from this project
-   - In build.gradle app level, do the following
-      - subprojects {
-        apply from: "../buildscripts/detekt.gradle"
-        }
-        
+    - Add the following in build.gradle app level, in ext under buildscripts
+        - // https://github.com/detekt/detekt/releases
+          detekVersion = "1.17.0"
+    - Add the following in build.gradle app level, under repositories
+        - classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
+    - In the Project root level
+        - Create a directory named 'buildscripts'(If it not already exists)
+        - Create a file called 'detekt.gradle'
+        - Copy the file from this project
+    - In build.gradle app level, do the following
+        - subprojects {
+          apply from: "../buildscripts/detekt.gradle"
+          }
+
 9. When we add detekt plugin, we get a detektGenerateConfig file,
     - It will automatically generate a default detekt file
     - Do the following to run it
@@ -78,7 +78,7 @@ This runs other static analysis for us, like
         - Or, hit ctrl ctrl and serch for ./gradlew detektGenerateConfig
     - This will create a detekt file
         - Which we can mostly use out of the box
-    
+
 10. Run './gradlew detekt' on your local to see if there are any issues
     - We will see issues related to magic numbers in compose files
     - Add the following on top of Color.kt file
@@ -88,8 +88,38 @@ This runs other static analysis for us, like
     - name: Static Analysis
       run: ./gradlew ktlintCheck detekt
     - or, Copy the file in this project to do it.
-    
 
+## Initial Setup 4 - Git Hooks
+We can do certain actions pre, post push and stuff
+.git is private, so we won't be able to share it directly. We should do the following
+
+12. Create a new directory in the project root level and call it 'git-hooks'
+    - create a file 'pre-commit.sh'
+    - This is a bash file
+
+13. Copy the pre-commit code from this project
+    - This will run ktlint before committing code
+    - This particular piece of code will run only on changed kotlin files
+    
+14. Create a file 'pre-push.sh'
+    - This is a bash file, and copy the contents from this project
+    
+15. Go to buildscripts -> Create 'git-hooks.gradle'
+    - Copy contents from this project
+    - This will only work on linux and mac
+    - This will copy the git hooks and paste it and make it runnable in git hooks
+    
+16. Go to build.gradle app module
+    - Add the below above subprojects
+    - apply from: "buildscripts/git-hooks.gradle"
+    - This will run on the broader project
+    
+17. Go to build.gradle app module, and after task clean do the following
+    - afterEvaluate {
+      tasks['clean'].dependsOn installGitHooks
+      }
+    - This would basically mean whenever someone runs a clean, githooks will be added to their project
+    - Sounds like an overkill, but since it runs lighting fast, it is ok.
         
         
 

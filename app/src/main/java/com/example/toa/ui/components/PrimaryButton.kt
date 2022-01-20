@@ -3,7 +3,6 @@ package com.example.toa.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.MaterialTheme
@@ -16,8 +15,8 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.toa.R
+import com.example.toa.ui.theme.ButtonShape
 import com.example.toa.ui.theme.TOATheme
-import java.util.*
 
 @Composable
 fun PrimaryButton(
@@ -33,7 +32,7 @@ fun PrimaryButton(
     Button(
         onClick = onClick,
         colors = buttonColors,
-        shape = RoundedCornerShape(50),
+        shape = ButtonShape,
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth()

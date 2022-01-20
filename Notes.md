@@ -121,6 +121,13 @@ We can do certain actions pre, post push and stuff
     - This would basically mean whenever someone runs a clean, githooks will be added to their project
     - Sounds like an overkill, but since it runs lighting fast, it is ok.
         
+
+
+---------
+Other issues:
+- @Preview in compose might cause detekt to throw UnusedPrivateMember error.
+    - Go to detekt.yml file, search for allowedNames, and add
+    - .*Preview
         
 
     

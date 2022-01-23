@@ -10,7 +10,7 @@ value class Email(private val email: String)
 @JvmInline
 value class Password(private val password: String)
 
-interface LoginUseCase {
+interface CredentialsLoginUseCase {
     suspend fun login(
         email: Email,
         password: Password

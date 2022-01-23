@@ -1,13 +1,12 @@
-package com.example.toa.ui.components
+package com.example.toa.core.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.ButtonDefaults.textButtonColors
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,28 +15,27 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.toa.R
-import com.example.toa.ui.theme.ButtonShape
-import com.example.toa.ui.theme.TOATheme
+import com.example.toa.core.ui.theme.ButtonShape
+import com.example.toa.core.ui.theme.TOATheme
 
 @Composable
-fun SecondaryButton(
+fun PrimaryButton(
     modifier: Modifier = Modifier,
     text: String,
-    contentColor: Color = MaterialTheme.colors.primary,
+    backgroundColor: Color = MaterialTheme.colors.primary,
     onClick: () -> Unit = {}
 ) {
-
-    val buttonColors = textButtonColors(
-        contentColor = contentColor
+    val buttonColors = buttonColors(
+        backgroundColor = backgroundColor
     )
 
-    TextButton(
+    Button(
         onClick = onClick,
+        colors = buttonColors,
         shape = ButtonShape,
         modifier = modifier
             .height(dimensionResource(id = R.dimen.button_height))
-            .fillMaxWidth(),
-        colors = buttonColors
+            .fillMaxWidth()
     ) {
         Text(
             text = text.toUpperCase(Locale.current)
@@ -54,13 +52,12 @@ fun SecondaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
-private fun SecondaryButtonPreview() {
+private fun PrimaryButtonPreview() {
     TOATheme {
-        Surface {
-            SecondaryButton(
-                text = "Default",
-                onClick = {},
-            )
-        }
+        PrimaryButton(
+            text = "Default",
+            onClick = {},
+
+        )
     }
 }

@@ -1,4 +1,4 @@
-package com.example.toa.ui.login
+package com.example.toa.login.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -17,18 +17,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.toa.R
-import com.example.toa.ui.components.PrimaryButton
-import com.example.toa.ui.components.SecondaryButton
-import com.example.toa.ui.components.TOATextField
-import com.example.toa.ui.core.VerticalSpacer
-import com.example.toa.ui.theme.TOATheme
+import com.example.toa.core.ui.components.PrimaryButton
+import com.example.toa.core.ui.components.SecondaryButton
+import com.example.toa.core.ui.components.TOATextField
+import com.example.toa.core.ui.core.VerticalSpacer
+import com.example.toa.core.ui.theme.TOATheme
 
 private const val APP_LOGO_WIDTH_PERCENTAGE = 0.75F
 
 @Composable
 fun LoginContent(
     viewState: LoginViewState,
-    onUsernameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginChanged: () -> Unit,
     onSignUpChanged: () -> Unit,
@@ -50,15 +50,15 @@ fun LoginContent(
 
             Spacer(modifier = Modifier.weight(1F))
 
-            UsernameInput(
-                text = viewState.userName,
-                onTextChanged = onUsernameChanged
+            EmailInput(
+                text = viewState.email,
+                onTextChanged = onEmailChanged
             )
 
             VerticalSpacer(12.dp)
 
             PasswordInput(
-                text = viewState.userName,
+                text = viewState.email,
                 onTextChanged = onPasswordChanged
             )
 
@@ -110,14 +110,14 @@ private fun PasswordInput(
 }
 
 @Composable
-private fun UsernameInput(
+private fun EmailInput(
     text: String,
     onTextChanged: (String) -> Unit
 ) {
     TOATextField(
         text = text,
         onTextChanged = onTextChanged,
-        labelText = stringResource(R.string.username)
+        labelText = stringResource(R.string.email)
     )
 }
 
@@ -143,14 +143,14 @@ private fun AppLogo() {
 @Suppress("UnusedPrivateMember")
 private fun EmptyLoginContentPreview() {
     val viewState = LoginViewState(
-        userName = "",
+        email = "",
         password = "",
     )
 
     TOATheme {
         LoginContent(
             viewState = viewState,
-            onUsernameChanged = {},
+            onEmailChanged = {},
             onPasswordChanged = {},
             onLoginChanged = {},
             onSignUpChanged = {}

@@ -78,6 +78,7 @@ This runs other static analysis for us, like
         - Or, hit ctrl ctrl and serch for ./gradlew detektGenerateConfig
     - This will create a detekt file
         - Which we can mostly use out of the box
+        - This will be added in the root level under config folder
 
 10. Run './gradlew detekt' on your local to see if there are any issues
     - We will see issues related to magic numbers in compose files

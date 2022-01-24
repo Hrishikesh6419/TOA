@@ -122,6 +122,46 @@ We can do certain actions pre, post push and stuff
     - This would basically mean whenever someone runs a clean, githooks will be added to their project
     - Sounds like an overkill, but since it runs lighting fast, it is ok.
         
+        
+        
+-----------
+Files to update(In short):
+1. Folder: root -> .github -> workflows
+    - android_build.yml, android_ui_tests.yml, danger_checks.yml
+2. Folder: root -> buildscripts
+    - detekt.gradle, git-hooks.gradle, ktlint.gradle
+3. Folder: root -> config -> detekt
+    - detekt.yml
+4. Folder: root -> git-hooks
+    - pre-commit.sh, pre-push.sh
+5. Folder: root
+    - Dangerfile, Gemfile
+6. In Build.gradle app level file
+    - Add these in ext
+        // https://github.com/jlleitschuh/ktlint-gradle/releases
+        ktlintPluginVersion = "10.2.1"
+
+        // https://github.com/detekt/detekt/releases
+        detektVersion = "1.17.0" 
+    - In repositories add maven { url "https://plugins.gradle.org/m2/" }
+    - In dependencies add
+        -  classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
+           classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"       
+    - Add the below above clean
+        - apply from: "buildscripts/git-hooks.gradle"
+        - subprojects {
+            apply from: "../buildscripts/ktlint.gradle"
+            apply from: "../buildscripts/detekt.gradle"
+            }
+    - Add the below after clean
+        - afterEvaluate { 
+            tasks['clean'].dependsOn installGitHooks
+            }
+
+
+
+
+
 
 
 ---------
